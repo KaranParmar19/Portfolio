@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
+
+const navLinks = [
+  { label: "About", href: "#about", num: "01" },
+  { label: "Work", href: "#work", num: "02" },
+  { label: "Contact", href: "#contact", num: "03" },
+];
 
 const Navbar = () => {
   useEffect(() => {
@@ -23,14 +28,14 @@ const Navbar = () => {
     smoother.scrollTop(0);
     smoother.paused(true);
 
-    let links = document.querySelectorAll(".header ul a");
+    let links = document.querySelectorAll(".header .navbar-links a");
     links.forEach((elem) => {
       let element = elem as HTMLAnchorElement;
       element.addEventListener("click", (e) => {
         if (window.innerWidth > 1024) {
           e.preventDefault();
-          let elem = e.currentTarget as HTMLAnchorElement;
-          let section = elem.getAttribute("data-href");
+          let el = e.currentTarget as HTMLAnchorElement;
+          let section = el.getAttribute("data-href");
           smoother.scrollTo(section, true, "top top");
         }
       });
@@ -39,36 +44,36 @@ const Navbar = () => {
       ScrollSmoother.refresh(true);
     });
   }, []);
+
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          KP
+        <a href="/#" className="navbar-logo" data-cursor="disable">
+          <span className="navbar-logo-badge">KP</span>
+          <span className="navbar-logo-text">karan.dev</span>
         </a>
+
+        <ul className="navbar-links">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                data-href={link.href}
+                href={link.href}
+                data-num={link.num}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
         <a
           href="mailto:kp5336464@gmail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          kp5336464@gmail.com
+          Hire Me
         </a>
-        <ul>
-          <li>
-            <a data-href="#about" href="#about">
-              <HoverLinks text="ABOUT" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#work" href="#work">
-              <HoverLinks text="WORK" />
-            </a>
-          </li>
-          <li>
-            <a data-href="#contact" href="#contact">
-              <HoverLinks text="CONTACT" />
-            </a>
-          </li>
-        </ul>
       </div>
 
       <div className="landing-circle1"></div>

@@ -1,0 +1,136 @@
+.softskills-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.softskills-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Masonry-style bento grid */
+.softskills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 14px;
+}
+
+/* Skill card */
+.softskill-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(16px);
+}
+
+.softskill-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-violet);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.softskill-card:hover {
+  border-color: var(--border-bright);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-violet);
+}
+
+.softskill-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* Wide card spans 2 cols */
+.softskill-card.wide {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+}
+
+.softskill-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--violet-glow);
+  border: 1px solid var(--border-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.softskill-card:hover .softskill-card-icon {
+  box-shadow: 0 0 24px var(--violet-glow);
+  background: rgba(167, 139, 250, 0.15);
+}
+
+.softskill-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.softskill-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.softskill-card p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.softskill-tag {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 3px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border-bright);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--violet-light);
+  background: var(--violet-glow);
+}
+
+@media screen and (max-width: 900px) {
+  .softskills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .softskill-card.wide {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .softskills-grid {
+    grid-template-columns: 1fr;
+  }
+  .softskill-card.wide {
+    grid-column: span 1;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

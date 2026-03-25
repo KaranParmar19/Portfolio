@@ -1,149 +1,62 @@
-import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const services = [
+  {
+    num: "01",
+    icon: "🏗️",
+    title: "System Design",
+    description: "Building clean, scalable systems by combining strong architecture with efficient problem-solving. Designing systems that handle real-world load.",
+    tags: ["DSA", "REST APIs", "Microservices", "Load Balancing", "Caching", "Scalability"],
+  },
+  {
+    num: "02",
+    icon: "🧩",
+    title: "Problem Solving",
+    description: "Solving complex problems using strong foundations in data structures, algorithms, and logical thinking. 600+ problems solved on competitive platforms.",
+    tags: ["C++", "Dynamic Programming", "Graphs", "Optimization", "LeetCode"],
+  },
+  {
+    num: "03",
+    icon: "⚛️",
+    title: "Full-Stack Development",
+    description: "End-to-end application development with modern MERN stack. Building interactive, real-time systems with seamless UX.",
+    tags: ["React", "Node.js", "MongoDB", "Express", "TypeScript", "WebSockets"],
+  },
+  {
+    num: "04",
+    icon: "🎞️",
+    title: "Creative Engineering",
+    description: "Crafting immersive web experiences using real-time graphics and animation. From 3D scenes to smooth GSAP motion design.",
+    tags: ["GSAP", "Three.js", "WebGL", "Animation", "D3.js"],
+  },
+];
 
 const WhatIDo = () => {
-  const containerRef = useRef<(HTMLDivElement | null)[]>([]);
-  const setRef = (el: HTMLDivElement | null, index: number) => {
-    containerRef.current[index] = el;
-  };
-  useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
-      });
-    }
-    return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
-    };
-  }, []);
   return (
-    <div className="whatIDO">
-      <div className="what-box">
-        <h2 className="title">
-          W<span className="hat-h2">HAT</span>
-          <div>
-            I<span className="do-h2"> DO</span>
-          </div>
-        </h2>
-      </div>
-      <div className="what-box">
-        <div className="what-box-in">
-          <div className="what-border2">
-            <svg width="100%">
-              <line
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-              <line
-                x1="100%"
-                y1="0"
-                x2="100%"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-            </svg>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 0)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="100%"
-                  y2="0"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
+    <div className="whatIDO section-container">
+      <div className="whatido-container">
+        <div className="whatido-header">
+          <span className="section-label">What I Do</span>
+          <h2 className="section-title">My Areas of <span>Expertise</span></h2>
+        </div>
 
-            <div className="what-content-in">
-              <h3>SYSTEM DESIGN</h3>
-              <h4>Building Scalable Systems</h4>
-              <p>
-                Building clean, scalable systems by combining strong architecture with efficient problem-solving.              </p>
-              <h5>Skillset</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">DSA</div>
-                <div className="what-tags">REST APIs</div>
-                <div className="what-tags">Microservices</div>
-                <div className="what-tags">DataBase</div>
-                <div className="what-tags">Load Balancing</div>
-                <div className="what-tags">Caching Concepts</div>
-                <div className="what-tags">Scalability</div>
-                <div className="what-tags">System Architectures</div>
+        <div className="whatido-grid">
+          {services.map((svc) => (
+            <div className="whatido-card" key={svc.num}>
+              <span className="whatido-card-num">{svc.num}</span>
+              <div className="whatido-card-icon-row">
+                <div className="whatido-card-icon">{svc.icon}</div>
+                <div className="whatido-card-arrow">↗</div>
               </div>
-              <div className="what-arrow"></div>
-            </div>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 1)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-            <div className="what-content-in">
-              <h3>PROBLEM SOLVING</h3>
-              <h4>Pattern Recognition & Optimization</h4>
-              <p>
-                Solving complex problems using strong foundations in data structures, algorithms, and logical thinking.
-
-              </p>
-              <h5>Skillset</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">C++</div>
-                <div className="what-tags">DP</div>
-                <div className="what-tags">Graphs</div>
-                <div className="what-tags">Mathematics</div>
-                <div className="what-tags">Optimization</div>
-                <div className="what-tags">Competative Programming</div>
-
-
+              <h3>{svc.title}</h3>
+              <p>{svc.description}</p>
+              <div className="whatido-tags-row">
+                {svc.tags.map((tag) => (
+                  <span className="whatido-tag" key={tag}>{tag}</span>
+                ))}
               </div>
-              <div className="what-arrow"></div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -151,18 +64,3 @@ const WhatIDo = () => {
 };
 
 export default WhatIDo;
-
-function handleClick(container: HTMLDivElement) {
-  container.classList.toggle("what-content-active");
-  container.classList.remove("what-sibling");
-  if (container.parentElement) {
-    const siblings = Array.from(container.parentElement.children);
-
-    siblings.forEach((sibling) => {
-      if (sibling !== container) {
-        sibling.classList.remove("what-content-active");
-        sibling.classList.toggle("what-sibling");
-      }
-    });
-  }
-}
