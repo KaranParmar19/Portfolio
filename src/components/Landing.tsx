@@ -5,6 +5,13 @@ const Landing = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div className="landing-section" id="landingDiv">
+        {/* Interstitial Splash Reveal */}
+        <div className="landing-splash-overlay">
+          <div className="splash-word splash-word-1">SOFTWARE</div>
+          <div className="splash-word splash-word-2">DEVELOPMENT</div>
+          <div className="splash-word splash-word-3">ENGINEER</div>
+        </div>
+
         <div className="landing-container">
 
           {/* Status pill */}

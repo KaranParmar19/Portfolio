@@ -1,14 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
 
-import Marquee from "react-fast-marquee";
+const bootLogs = [
+  "INITIALIZING NEURAL FORGE KERNEL...",
+  "RESOLVING DOM DEPENDENCIES...",
+  "MOUNTING REACT NODE TREE...",
+  "ALLOCATING VRAM FOR WEBGL...",
+  "ESTABLISHING SECURE SOCKET CONNECTIONS...",
+  "CACHING ASSETS AND FONTS...",
+  "INJECTING GSAP SCROLLTRIGGERS...",
+  "SYNCHRONIZING ANIMATION TIMELINES...",
+  "CALIBRATING VIEWPORT DIMENSIONS...",
+  "COMPILING FINAL BUNDLE...",
+];
 
 const Loading = ({ percent }: { percent: number }) => {
   const { setIsLoading } = useLoading();
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
+  
+  const stageRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // Derive visible logs based on percentage
+  useEffect(() => {
+    const logCount = Math.floor((percent / 100) * bootLogs.length);
+    setVisibleLogs(bootLogs.slice(0, logCount === 0 && percent > 0 ? 1 : logCount));
+  }, [percent]);
 
   useEffect(() => {
     if (percent < 100) return;
@@ -31,108 +52,80 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 1200); // Wait for CRT animation
       }
     });
-  }, [isLoaded]);
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
-    const { currentTarget: target } = e;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    target.style.setProperty("--mouse-x", `${x}px`);
-    target.style.setProperty("--mouse-y", `${y}px`);
+    if (clicked || !wrapRef.current || !stageRef.current) return;
+    
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    
+    // Spotlight update
+    wrapRef.current.style.setProperty("--mouse-x", `${clientX}px`);
+    wrapRef.current.style.setProperty("--mouse-y", `${clientY}px`);
+    
+    // 3D Tilt calculation
+    const xPos = (clientX / innerWidth) - 0.5;
+    const yPos = (clientY / innerHeight) - 0.5;
+    
+    // Rotate max 15deg
+    stageRef.current.style.transform = `rotateX(${yPos * -15}deg) rotateY(${xPos * 15}deg)`;
   }
 
+  // Calculate liquid fill path. Bottom to top.
+  // 100% fill = 0% clip. 0% fill = 100% clip.
+  const fillY = `${100 - percent}%`;
+
   return (
-    <>
-      <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
-          KP
-        </a>
-        <div className={`loaderGame ${clicked && "loader-out"}`}>
-          <div className="loaderGame-container">
-            <div className="loaderGame-in">
-              {[...Array(27)].map((_, index) => (
-                <div className="loaderGame-line" key={index}></div>
-              ))}
-            </div>
-            <div className="loaderGame-ball"></div>
+    <div 
+      className={`loading-screen ${clicked ? "loading-exit" : ""}`}
+      onMouseMove={handleMouseMove}
+      ref={wrapRef}
+    >
+      <div className="loading-crt-overlay" />
+      <div className="loading-spotlight" />
+      
+      <div className="loading-subtitle">SYSTEM BOOT</div>
+
+      {/* Terminal Logs */}
+      <div className="loading-terminal">
+        {visibleLogs.map((log, idx) => (
+          <div 
+            key={idx} 
+            className={`loading-log-line active ${idx === bootLogs.length - 1 && percent === 100 ? 'success' : ''}`}
+          >
+            &gt; {log} {idx === bootLogs.length - 1 && percent === 100 ? '[OK]' : ''}
+          </div>
+        ))}
+      </div>
+
+      {/* Centered Graphic */}
+      <div className="loading-center-stage" ref={stageRef}>
+        <div className={`loading-logo-wrapper ${loaded ? "loading-glitch" : ""}`}>
+          <div style={{ position: "relative" }}>
+            <h1 className="loading-logo-text">KP</h1>
+            <h1 
+              className="loading-logo-text loading-logo-fill" 
+              style={{ '--fill-y': fillY } as React.CSSProperties}
+            >
+              KP
+            </h1>
+          </div>
+          
+          <div className="loading-progress-display">
+            <span className="loading-percent">{percent}</span>
+            <span className="loading-target">%</span>
+            {loaded && <span className="loading-target" style={{ marginLeft: "12px", color: "white" }}>READY_</span>}
           </div>
         </div>
       </div>
-      <div className="loading-screen">
-        <div className="loading-marquee">
-          <Marquee>
-            <span> Software Development Engineer</span> <span>Software Engineer</span>
-            <span> Software Development Engineer</span> <span>Software Engineer</span>
-          </Marquee>
-        </div>
-        <div
-          className={`loading-wrap ${clicked && "loading-clicked"}`}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <div className="loading-hover"></div>
-          <div className={`loading-button ${loaded && "loading-complete"}`}>
-            <div className="loading-container">
-              <div className="loading-content">
-                <div className="loading-content-in">
-                  Loading <span>{percent}%</span>
-                </div>
-              </div>
-              <div className="loading-box"></div>
-            </div>
-            <div className="loading-content2">
-              <span>Welcome</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
 export default Loading;
 
-export const setProgress = (setLoading: (value: number) => void) => {
-  let percent: number = 0;
 
-  let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
-      percent = percent + rand;
-      setLoading(percent);
-    } else {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
-        if (percent > 91) {
-          clearInterval(interval);
-        }
-      }, 2000);
-    }
-  }, 100);
-
-  function clear() {
-    clearInterval(interval);
-    setLoading(100);
-  }
-
-  function loaded() {
-    return new Promise<number>((resolve) => {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        if (percent < 100) {
-          percent++;
-          setLoading(percent);
-        } else {
-          resolve(percent);
-          clearInterval(interval);
-        }
-      }, 2);
-    });
-  }
-  return { loaded, percent, clear };
-};
