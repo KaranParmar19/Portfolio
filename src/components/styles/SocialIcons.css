@@ -73,24 +73,23 @@
   text-orientation: mixed;
   padding: 14px 8px;
   border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--glass);
+  border: 1px solid var(--amber);
+  background: var(--amber-glow);
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--amber);
   text-decoration: none;
   transition: all 0.25s ease;
   backdrop-filter: blur(10px);
   cursor: pointer;
   margin-top: 60px;
+  box-shadow: 0 0 20px var(--amber-glow);
 }
 
 .resume-button:hover {
-  border-color: var(--amber);
-  color: var(--amber);
-  background: var(--amber-glow);
-  box-shadow: 0 0 20px var(--amber-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
 }
