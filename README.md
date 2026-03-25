@@ -1,16 +1,52 @@
-# My Portfolio Wesbite - Overview 🚀
+# Karan Parmar - Portfolio v2.0 🚀
 
-This repository contains the open source version of my porfolio website.
-Do check it out!
+Welcome to the open-source repository for my personal portfolio website.
 
-## Instructions 🛠️
+**Live Link:** [https://karan-portfolio-v38j.onrender.com/](https://karan-portfolio-v38j.onrender.com/)
 
-I have modified the gsap club plugins with the trial plugins, but with the trial plugin you cannot host it🔴. So for Club plugins, Check out here: https://gsap.com/docs/v3/Installation/
+---
 
-**Techstack** - React, TypeScript, GSAP, ThreeJS, WebGL, HTML, Css, JavaScript
+## 🎨 Theme: "Neural Forge"
+A completely custom "Engineered Luxury" design, featuring:
+- **Palette**: Deep obsidian (`#080812`), electric violet (`#a78bfa`), and amber gold (`#f59e0b`).
+- **Typography**: Space Grotesk (headers) & Space Mono (technical/system text).
+- **Aesthetics**: Glassmorphism cards, glowing ambient gradients, and brutalist accents.
 
-![Portfolio-Preview](public/images/preview.png)
+![Portfolio Preview](./public/images/preview.png)
+*(Note: Please replace `public/images/preview.png` with the new screenshot of the site!)*
 
-## License
+---
 
-This project is open source and available under the [MIT License](LICENSE).
+## 🛠️ Tech Stack
+This portfolio is built with performance and smooth aesthetics in mind.
+- **Frontend**: React, TypeScript, HTML5, Vanilla CSS
+- **Animations**: GSAP (GreenSock), ScrollTrigger, ScrollSmoother
+- **3D Graphics**: Three.js, WebGL
+- **Ecosystem**: Node.js, Express, MongoDB (for full-stack projects highlighted inside)
+
+---
+
+## 🏃‍♂️ How to Run Locally
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/KaranParmar19/Portfolio.git
+   cd Portfolio
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+*(Note: The `ScrollSmoother` plugin requires a GreenSock Club membership for commercial deployment. The trial versions work fine locally.)*
+
+---
+
+## 📜 License
+This project is open-source and available under the [MIT License](LICENSE).
