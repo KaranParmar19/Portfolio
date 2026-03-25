@@ -11,10 +11,6 @@ A completely custom "Engineered Luxury" design, featuring:
 - **Palette**: Deep obsidian (`#080812`), electric violet (`#a78bfa`), and amber gold (`#f59e0b`).
 - **Typography**: Space Grotesk (headers) & Space Mono (technical/system text).
 - **Aesthetics**: Glassmorphism cards, glowing ambient gradients, and brutalist accents.
-
-![Portfolio Preview](./public/images/preview.png)
-*(Note: Please replace `public/images/preview.png` with the new screenshot of the site!)*
-
 ---
 
 ## 🛠️ Tech Stack
