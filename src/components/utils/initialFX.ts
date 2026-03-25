@@ -42,7 +42,7 @@ export function initialFX() {
     ".landing-float-tag",
     ".landing-scroll"
   ], { opacity: 0 });
-  gsap.set(".header, .social-icons-wrapper", { opacity: 0 });
+  gsap.set(".header, .icons-section", { opacity: 0 });
 
   // ==========================================
   // SPLASH SEQUENCE (Title Card flashes)
@@ -82,7 +82,7 @@ export function initialFX() {
 
   // Fade in fixed header & socials
   .fromTo(
-    ".header, .social-icons-wrapper",
+    ".header, .icons-section",
     { opacity: 0, y: -20 },
     { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
     "-=0.2" // Overlap slightly with the explosion
