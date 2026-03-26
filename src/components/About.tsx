@@ -15,7 +15,7 @@ const About = () => {
             I'm <strong>Karan Parmar</strong>, a Software Development Engineer in the making, currently pursuing my B.Tech in Computer Science at <span className="about-highlight">Lovely Professional University</span>.
           </p>
           <p className="about-paragraph">
-            My core strength lies at the intersection of <strong>problem-solving and product thinking</strong>. With over <span className="about-highlight">600+ DSA problems</span> solved, I've developed a strong foundation in algorithms and system design.
+            My core strength lies at the intersection of <strong>problem-solving and product thinking</strong>. With over <span className="about-highlight">500+ DSA problems</span> solved, I've developed a strong foundation in algorithms and system design.
           </p>
           <p className="about-paragraph">
             I specialize in the <strong>MERN stack</strong>, building complex, interactive systems — from real-time collaboration platforms to performance-optimized applications.
@@ -27,7 +27,7 @@ const About = () => {
           <div className="about-card">
             <div className="about-card-icon">⚡</div>
             <div className="about-card-body">
-              <div className="about-card-value">600<span>+</span></div>
+              <div className="about-card-value">500<span>+</span></div>
               <div className="about-card-label">DSA Problems Solved</div>
             </div>
           </div>
