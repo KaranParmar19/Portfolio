@@ -47,7 +47,7 @@ const Landing = ({ children }: PropsWithChildren) => {
           {/* Stats */}
           <div className="landing-stats">
             <div className="landing-stat">
-              <span className="landing-stat-value">600<span>+</span></span>
+              <span className="landing-stat-value">500<span>+</span></span>
               <span className="landing-stat-label">DSA Problems</span>
             </div>
             <div className="landing-stat-divider"></div>
